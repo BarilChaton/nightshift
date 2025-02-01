@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     [Header("Front door")]
     [SerializeField] private GameObject frontDoor;
 
+    private bool hasRandomizedTrash = false;
+
     private void Start()
     {
         Instance = this;
@@ -58,9 +60,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void RandomizeGroups() {
+        if (hasRandomizedTrash) return;
+
         RandomizeGroup(trashGroup0);
         RandomizeGroup(trashGroup1);
         RandomizeGroup(trashGroup2);
+        hasRandomizedTrash = true;
     }
 
     private void RandomizeGroup(GameObject[] group) {
