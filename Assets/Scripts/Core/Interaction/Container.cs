@@ -37,14 +37,18 @@ public class Container : InteractableObject {
 
         if (gameObject.CompareTag("Container") && gameManager.toiletTrashPicked) {
             gameManager.toiletTrashDisposed = true;
-            gameManager.RunSequenceOne();
+
+            if (!gameManager.sequenceOneDone) {
+                gameManager.RunSequenceOne();
+            }
+
             audioSource.PlayOneShot(dumpClose);
         }
 
         if (gameObject.CompareTag("ToiletContainer")) {
             gameManager.toiletDetergentAdded = true;
-            gameManager.RandomizeGroups();
             audioSource.PlayOneShot(toiletCleaned);
+            gameManager.RandomizeGroups();
         }
     }
 }

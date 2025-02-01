@@ -9,6 +9,8 @@ public class LightSwitch : InteractableObject {
     [SerializeField] private GameObject lightsOff;
     [SerializeField] private GameObject lightSwitchOn;
     [SerializeField] private GameObject lightSwitchOff;
+    [SerializeField] private GameObject gameManager;
+    [SerializeField] private bool isSequenceAffecting = false;
 
     [SerializeField] public bool lightsAreOn = true;
 
@@ -45,6 +47,11 @@ public class LightSwitch : InteractableObject {
         lightSwitchSource.PlayOneShot(lightSwitchSound);
 
         lightsAreOn = true;
+
+        if (isSequenceAffecting) {
+            gameManager.GetComponent<GameManager>().EndSequenceOne();
+            isSequenceAffecting = false;
+        }
     }    
     
     public void TurnOffLights() {

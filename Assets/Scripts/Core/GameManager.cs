@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject backLightsOn;
     public GameObject backLightsOff;
     public GameObject creatureInStorageZero;
-    private bool sequenceOneDone = false;
+    public bool sequenceOneDone = false;
 
     [Header("Trash Randomness Manager")]
     [SerializeField] private GameObject[] trashGroup0;
@@ -34,21 +34,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
-    }
-
-    private void Update() {
-        if (toiletTrashPicked && toiletTrashDisposed) {
-            if (!sequenceOneDone) {
-                //creatureNearWindow.SetActive(false);
-                //backLightsController.GetComponent<LightSwitch>().OnInteract();
-                //creatureInStorageZero.SetActive(true);
-                //sequenceOneDone = true;
-            } else {
-                if (backLightsController.GetComponent<LightSwitch>().lightsAreOn) {
-                    creatureInStorageZero.SetActive(false);
-                }
-            }
-        }
     }
 
     public void ActivateNPCOnWindow() {
@@ -64,12 +49,18 @@ public class GameManager : MonoBehaviour
         sequenceOneDone = true;
     }
 
-    public void RandomizeGroups() {
-        if (toiletDetergentAdded) {
-            RandomizeGroup(trashGroup0);
-            RandomizeGroup(trashGroup1);
-            RandomizeGroup(trashGroup2);
+    public void EndSequenceOne() {
+        if (sequenceOneDone) {
+            if (backLightsController.GetComponent<LightSwitch>().lightsAreOn) {
+                creatureInStorageZero.SetActive(false);
+            }
         }
+    }
+
+    public void RandomizeGroups() {
+        RandomizeGroup(trashGroup0);
+        RandomizeGroup(trashGroup1);
+        RandomizeGroup(trashGroup2);
     }
 
     private void RandomizeGroup(GameObject[] group) {
@@ -78,15 +69,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (group != null) {
-            group[0].SetActive(false);
-        }
+        group[0].SetActive(false);
 
         // First index should be 1 as the second element of the array so it does not activate the first as it's supposed to be inactive.
         int randomIndex = Random.Range(1, group.Length);
-
-        if (group[randomIndex] != null) {
-            group[randomIndex].SetActive(true);
-        }
+        group[randomIndex].SetActive(true);
+        Debug.Log(randomIndex);
     }
 }

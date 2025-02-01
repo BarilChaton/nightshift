@@ -2377,6 +2377,10 @@ PrefabInstance:
       propertyPath: lightsOff
       value: 
       objectReference: {fileID: 923872531}
+    - target: {fileID: 4008601411877174582, guid: 1e05f6df31968164fb23e5712da713d3, type: 3}
+      propertyPath: isSequenceAffecting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6095911546996432683, guid: 1e05f6df31968164fb23e5712da713d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.605
