@@ -79,6 +79,5 @@ public class GameManager : MonoBehaviour
         // First index should be 1 as the second element of the array so it does not activate the first as it's supposed to be inactive.
         int randomIndex = Random.Range(1, group.Length);
         group[randomIndex].SetActive(true);
-        Debug.Log(randomIndex);
     }
 }
