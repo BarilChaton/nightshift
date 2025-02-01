@@ -171,6 +171,23 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region Encounters
+
+    public void FreezeMovement() {
+        CanMove = false;
+        CanLook = false;
+        moveDirection.y = 0;
+        moveDirection.x = 0;
+        moveDirection.z = 0;
+        characterController.Move(moveDirection);
+    }    
+    public void UnfreezeMovement() {
+        CanMove = true;
+        CanLook = true;
+    }
+
+    #endregion
+
     IEnumerator CheckForControllers() {
         while (true) {
             var controllers = Input.GetJoystickNames();

@@ -3386,7 +3386,7 @@ GameObject:
   - component: {fileID: 1072888838}
   - component: {fileID: 1072888837}
   m_Layer: 6
-  m_Name: Garbage_bag_00b
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3694,6 +3694,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6727001690014001252}
+  - {fileID: 2074983834}
   m_Father: {fileID: 84442418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1125438081
@@ -4325,7 +4326,7 @@ GameObject:
   - component: {fileID: 1284420686}
   - component: {fileID: 1284420685}
   m_Layer: 6
-  m_Name: Garbage_bag_02c
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4808,7 +4809,7 @@ GameObject:
   - component: {fileID: 1386804522}
   - component: {fileID: 1386804521}
   m_Layer: 6
-  m_Name: Garbage_bag_01b
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6589,7 +6590,7 @@ GameObject:
   - component: {fileID: 1807564760}
   - component: {fileID: 1807564759}
   m_Layer: 6
-  m_Name: Garbage_bag_00c
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6982,7 +6983,7 @@ GameObject:
   - component: {fileID: 1932850679}
   - component: {fileID: 1932850678}
   m_Layer: 6
-  m_Name: Garbage_bag_02b
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7190,7 +7191,7 @@ GameObject:
   - component: {fileID: 2059459426}
   - component: {fileID: 2059459425}
   m_Layer: 6
-  m_Name: Garbage_bag_01c
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7299,6 +7300,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059459423}
   m_Mesh: {fileID: -605504701268399108, guid: e17aada14f1fae9419bb140c6553b6bf, type: 3}
+--- !u!1 &2074983833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2074983834}
+  - component: {fileID: 2074983836}
+  - component: {fileID: 2074983835}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074983834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074983833}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.043, y: 0.87, z: -6.13}
+  m_LocalScale: {x: 1, y: 1.712, z: 12.232}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1110944623}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074983835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074983833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95161ce4e86b701478eb0d114cbd7f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPC: {fileID: 678360616738909788}
+  player: {fileID: 72939494}
+  freezeDuration: 3
+--- !u!65 &2074983836
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074983833}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2085983818
 GameObject:
   m_ObjectHideFlags: 0
@@ -9490,7 +9560,7 @@ GameObject:
   - component: {fileID: 8689057553850647570}
   - component: {fileID: 8689057553850647569}
   m_Layer: 6
-  m_Name: Garbage_bag_02a
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10786,6 +10856,7 @@ MonoBehaviour:
   closedAngle: 0
   openSpeed: 4
   isOpen: 0
+  isInteractable: 1
   isLocked: 0
   doorOpen: {fileID: 8300000, guid: 6cc4537865ae1479b9e7ac12ab172909, type: 3}
   doorClose: {fileID: 8300000, guid: 898f03a7c6c254aa2bffc1050c10ea08, type: 3}
@@ -13116,7 +13187,7 @@ GameObject:
   - component: {fileID: 8494862645214955765}
   - component: {fileID: 8494862645214955766}
   m_Layer: 6
-  m_Name: Garbage_bag_01a
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13952,6 +14023,7 @@ MonoBehaviour:
   closedAngle: 0
   openSpeed: 4
   isOpen: 0
+  isInteractable: 1
   isLocked: 0
   doorOpen: {fileID: 8300000, guid: 4b66f0c5f1c594a6e9d91b86f719108c, type: 3}
   doorClose: {fileID: 8300000, guid: b88eb643c13ba4470b51a26e2823b565, type: 3}
@@ -15453,6 +15525,7 @@ MonoBehaviour:
   closedAngle: 0
   openSpeed: 4
   isOpen: 0
+  isInteractable: 1
   isLocked: 1
   doorOpen: {fileID: 8300000, guid: 6cc4537865ae1479b9e7ac12ab172909, type: 3}
   doorClose: {fileID: 8300000, guid: 898f03a7c6c254aa2bffc1050c10ea08, type: 3}
@@ -16836,6 +16909,7 @@ MonoBehaviour:
   closedAngle: 0
   openSpeed: 4
   isOpen: 0
+  isInteractable: 1
   isLocked: 0
   doorOpen: {fileID: 8300000, guid: a200ceb3276a64815ba89e6db4488604, type: 3}
   doorClose: {fileID: 8300000, guid: c52f0b0e644464ca0b066d80091a5c8f, type: 3}
@@ -20676,6 +20750,7 @@ MonoBehaviour:
   closedAngle: 0
   openSpeed: 4
   isOpen: 0
+  isInteractable: 1
   isLocked: 0
   doorOpen: {fileID: 8300000, guid: a200ceb3276a64815ba89e6db4488604, type: 3}
   doorClose: {fileID: 8300000, guid: c52f0b0e644464ca0b066d80091a5c8f, type: 3}
@@ -21447,6 +21522,7 @@ MonoBehaviour:
   closedAngle: 0
   openSpeed: 4
   isOpen: 0
+  isInteractable: 1
   isLocked: 1
   doorOpen: {fileID: 8300000, guid: 6cc4537865ae1479b9e7ac12ab172909, type: 3}
   doorClose: {fileID: 8300000, guid: 898f03a7c6c254aa2bffc1050c10ea08, type: 3}
@@ -21820,7 +21896,7 @@ GameObject:
   - component: {fileID: 9026802662247485803}
   - component: {fileID: 9026802662247485804}
   m_Layer: 6
-  m_Name: Garbage_bag_00a
+  m_Name: Garbage_bag
   m_TagString: InventoryItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
