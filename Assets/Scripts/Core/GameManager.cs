@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] trashGroup2;
 
     [Header("Front door")]
-    [SerializeField] private GameObject frontDoor;
+    [SerializeField] private GameObject frontDoor0;
+    [SerializeField] private GameObject frontDoor1;
 
     private bool hasRandomizedTrash = false;
 
@@ -67,6 +68,11 @@ public class GameManager : MonoBehaviour
             threeTrashbagsObjective.gameObject.SetActive(true);
             allTrashTakenOut = true;
         }
+
+        if (trashBagsDisposed == 4 && toiletDetergentAdded) {
+            frontDoor0.GetComponent<DoorInteraction>().isLocked = false;
+            frontDoor1.GetComponent<DoorInteraction>().isLocked = false;
+        }
     }
 
     private void ToggleObjectives() {
@@ -85,8 +91,8 @@ public class GameManager : MonoBehaviour
         creatureNearWindow.SetActive(false);
         backLightsController.GetComponent<LightSwitch>().OnInteract();
         creatureInStorageZero.SetActive(true);
-        frontDoor.GetComponent<DoorInteraction>().isLocked = false;
-        frontDoor.GetComponent<DoorInteraction>().OnInteract();
+        frontDoor0.GetComponent<DoorInteraction>().isLocked = false;
+        frontDoor0.GetComponent<DoorInteraction>().OnInteract();
         sequenceOneDone = true;
     }
 

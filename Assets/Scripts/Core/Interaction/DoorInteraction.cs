@@ -11,6 +11,7 @@ public class DoorInteraction : InteractableObject {
     [SerializeField] private float closedAngle = 0f;
     [SerializeField] private float openSpeed = 4f;
     [SerializeField] private bool isOpen = false;
+    [SerializeField] private bool isInteractable = true;
     [SerializeField] public bool isLocked = false;
 
     [SerializeField] private AudioClip doorOpen;
@@ -34,11 +35,14 @@ public class DoorInteraction : InteractableObject {
     }
 
     public override void OnInteract() {
-        if (!isOpen && !isLocked) {
-            StartCoroutine(OpenDoor());
-        } else {
-            StartCoroutine(CloseDoor());
+        if (isInteractable) {
+            if (!isOpen && !isLocked) {
+                StartCoroutine(OpenDoor());
+            } else {
+                StartCoroutine(CloseDoor());
+            }
         }
+
         isOpen = !isOpen;
     }
 
@@ -51,18 +55,23 @@ public class DoorInteraction : InteractableObject {
 
         while (Quaternion.Angle(transform.rotation, openRotation) > 0.001f) {
             transform.rotation = Quaternion.Slerp(transform.rotation, openRotation, Time.deltaTime * openSpeed);
+            isInteractable = false;
             yield return null;
         }
+
         transform.rotation = openRotation;
+        isInteractable = true;
     }
 
     private IEnumerator CloseDoor() {
         audioSource.PlayOneShot(doorClose);
         while (Quaternion.Angle(transform.rotation, closedRotation) > 0.001f) {
             transform.rotation = Quaternion.Slerp(transform.rotation, closedRotation, Time.deltaTime * openSpeed);
+            isInteractable = false;
             yield return null;
         }
 
         transform.rotation = closedRotation;
+        isInteractable = true;
     }
 }
