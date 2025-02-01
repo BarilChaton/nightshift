@@ -6,16 +6,18 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool stickyNotesPicked = false;
+    public bool stickyNotesPicked = false;
     public static GameManager Instance;
     public int trashBagsDisposed = 0;
     public bool toiletTrashPicked = false;
     public bool toiletTrashDisposed = false;
     public bool toiletDetergentAdded = false;
+    public bool allTrashTakenOut = false;
 
     private InputAction objectivesAction;
     [SerializeField] private InputActionAsset PlayerActions;
     [SerializeField] private GameObject objectivesUI;
+    [SerializeField] private GameObject threeTrashbagsObjective = null;
 
     // Sequence
     [Header("Sequence 0")]
@@ -60,6 +62,11 @@ public class GameManager : MonoBehaviour
         if (stickyNotesPicked && objectivesPressed) {
             ToggleObjectives();
         }
+
+        if ((trashBagsDisposed == 3 && !toiletTrashDisposed) || (trashBagsDisposed == 4 && toiletTrashDisposed)) {
+            threeTrashbagsObjective.gameObject.SetActive(true);
+            allTrashTakenOut = true;
+        }
     }
 
     private void ToggleObjectives() {
@@ -93,6 +100,7 @@ public class GameManager : MonoBehaviour
 
     public void RandomizeGroups() {
         if (hasRandomizedTrash) return;
+        if (allTrashTakenOut) return;
 
         RandomizeGroup(trashGroup0);
         RandomizeGroup(trashGroup1);

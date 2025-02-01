@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Container : InteractableObject {
     [SerializeField] private GameObject inventoryItem;
+    [SerializeField] private GameObject toiletTrashObjective = null;
+    [SerializeField] private GameObject detergentObjective = null;
+
     [SerializeField] private GameManager gameManager;
 
     [SerializeField] private AudioClip dumpClose;
@@ -38,6 +41,10 @@ public class Container : InteractableObject {
         if (gameObject.CompareTag("Container") && gameManager.toiletTrashPicked) {
             gameManager.toiletTrashDisposed = true;
 
+            if (toiletTrashObjective != null) {
+                toiletTrashObjective.gameObject.SetActive(true);
+            }
+
             if (!gameManager.sequenceOneDone) {
                 gameManager.RunSequenceOne();
             }
@@ -51,6 +58,11 @@ public class Container : InteractableObject {
 
         if (gameObject.CompareTag("ToiletContainer")) {
             gameManager.toiletDetergentAdded = true;
+
+            if (detergentObjective != null) {
+                detergentObjective.gameObject.SetActive(true);
+            }
+
             audioSource.PlayOneShot(toiletCleaned);
 
             if (gameManager.toiletDetergentAdded && gameManager.toiletTrashDisposed) {

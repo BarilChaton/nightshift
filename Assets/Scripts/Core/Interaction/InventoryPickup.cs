@@ -10,7 +10,7 @@ public class InvenotryPickup : InteractableObject {
     [SerializeField] private AudioClip trashPickup;
     [SerializeField] private AudioClip detergentPickup;
 
-    public GameManager gameManager;
+    [SerializeField] private GameManager gameManager;
     public bool isToiletTrash = false;
 
     public override void OnFocus() {
@@ -18,6 +18,8 @@ public class InvenotryPickup : InteractableObject {
     }
 
     public override void OnInteract() {
+        if (!gameManager.stickyNotesPicked) return;
+
         gameObject.SetActive(false);
         playerInventoryItem.SetActive(true);
 

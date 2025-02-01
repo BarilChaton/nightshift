@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PostItPickup : InteractableObject {
+    [SerializeField] private GameManager gameManager;
 
     public override void OnFocus() {
 
@@ -10,7 +11,7 @@ public class PostItPickup : InteractableObject {
 
     public override void OnInteract() {
         gameObject.SetActive(false);
-        GameManager.stickyNotesPicked = true;
+        gameManager.stickyNotesPicked = true;
 
     }
 
