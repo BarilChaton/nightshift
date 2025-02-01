@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool stickyNotesPicked = false;
     public static GameManager Instance;
     public int trashBagsDisposed = 0;
     public bool toiletTrashPicked = false;
     public bool toiletTrashDisposed = false;
     public bool toiletDetergentAdded = false;
+
+    private InputAction objectivesAction;
+    [SerializeField] private InputActionAsset PlayerActions;
+    [SerializeField] private GameObject objectivesUI;
 
     // Sequence
     [Header("Sequence 0")]
@@ -33,9 +39,35 @@ public class GameManager : MonoBehaviour
 
     private bool hasRandomizedTrash = false;
 
-    private void Start()
-    {
+    private void Awake() {
+        objectivesAction = PlayerActions.FindActionMap("Player").FindAction("Objectives");
+    }
+
+    private void Start() {
         Instance = this;
+    }
+
+    private void OnEnable() {
+        objectivesAction.Enable();
+    }
+
+    private void OnDisable() {
+        objectivesAction.Disable();
+    }
+
+    private void Update() {
+        bool objectivesPressed = objectivesAction.WasPressedThisFrame();
+        if (stickyNotesPicked && objectivesPressed) {
+            ToggleObjectives();
+        }
+    }
+
+    private void ToggleObjectives() {
+        if (objectivesUI.activeSelf) {
+            objectivesUI.SetActive(false);
+        } else {
+            objectivesUI.SetActive(true);
+        }
     }
 
     public void ActivateNPCOnWindow() {
