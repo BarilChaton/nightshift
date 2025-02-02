@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class DoorInteraction : InteractableObject {
 
     public static DoorInteraction Instance;
+    [SerializeField] private GameObject interactorText;
+    [SerializeField] private string openTextToDisplay = "Test";
+    [SerializeField] private string closeTextToDisplay = "Test";
+    [SerializeField] private string lockedTextToDisplay = "Test";
 
     [SerializeField] private float openAngle = -90f;
     [SerializeField] private float closedAngle = 0f;
@@ -31,7 +36,7 @@ public class DoorInteraction : InteractableObject {
 
 
     public override void OnFocus() {
-
+        LookingAt();
     }
 
     public override void OnInteract() {
@@ -47,7 +52,14 @@ public class DoorInteraction : InteractableObject {
     }
 
     public override void OnLoseFocus() {
+        TextMeshProUGUI textComponent = interactorText.GetComponent<TextMeshProUGUI>();
+        textComponent.text = "";
+    }
 
+    private void LookingAt() {
+        TextMeshProUGUI textComponent = interactorText.GetComponent<TextMeshProUGUI>();
+        string textToDisplay = isLocked ? lockedTextToDisplay : isOpen ? closeTextToDisplay : openTextToDisplay;
+        textComponent.text = textToDisplay;
     }
 
     private IEnumerator OpenDoor() {

@@ -8,13 +8,17 @@ public class InitialEncounter : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private float freezeDuration = 7f;
     [SerializeField] private float lookSpeed = 2f;
+    [SerializeField] private AudioClip stingSound;
+
     private PlayerController playerController;
     private Transform playerCameraTransform;
+    private AudioSource playerAudioSource;
     private bool hasTriggered = false;
 
     private void Awake() {
         playerController = player.gameObject.GetComponent<PlayerController>();
         playerCameraTransform = playerController.GetComponentInChildren<Camera>().transform;
+        playerAudioSource = player.GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -22,6 +26,7 @@ public class InitialEncounter : MonoBehaviour
         {
             hasTriggered = true;
             playerController.FreezeMovement();
+            playerAudioSource.PlayOneShot(stingSound);
             StartCoroutine(ForceLookAtNPC());
         }
     }
@@ -29,8 +34,10 @@ public class InitialEncounter : MonoBehaviour
     IEnumerator ForceLookAtNPC() {
         Vector3 directionToNpc = (NPC.transform.position - player.transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(directionToNpc);
+
         float targetYRotation = targetRotation.eulerAngles.y;
         Quaternion newYRotation = Quaternion.Euler(0, targetYRotation, 0);
+
         float elapsedTime = 0f;
 
         while (elapsedTime < freezeDuration) {

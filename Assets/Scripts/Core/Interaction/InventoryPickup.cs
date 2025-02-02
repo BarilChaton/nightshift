@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InvenotryPickup : InteractableObject {
@@ -13,8 +14,12 @@ public class InvenotryPickup : InteractableObject {
     [SerializeField] private GameManager gameManager;
     public bool isToiletTrash = false;
 
-    public override void OnFocus() {
+    [SerializeField] private GameObject interactorText;
+    [SerializeField] private string textToDisplay = "Test";
 
+    public override void OnFocus() {
+        TextMeshProUGUI textComponent = interactorText.GetComponent<TextMeshProUGUI>();
+        textComponent.text = textToDisplay;
     }
 
     public override void OnInteract() {
@@ -42,6 +47,7 @@ public class InvenotryPickup : InteractableObject {
     }
 
     public override void OnLoseFocus() {
-
+        TextMeshProUGUI textComponent = interactorText.GetComponent<TextMeshProUGUI>();
+        textComponent.text = "";
     }
 }

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class LightSwitch : InteractableObject {
@@ -13,12 +15,16 @@ public class LightSwitch : InteractableObject {
     [SerializeField] private bool isSequenceAffecting = false;
 
     [SerializeField] public bool lightsAreOn = true;
+    [SerializeField] private GameObject interactorText;
+
+    [SerializeField] private string turnOnLightText = "Test";
+    [SerializeField] private string turnOffLightText = "Test";
 
     [SerializeField] private AudioClip lightSwitchSound;
     private AudioSource lightSwitchSource;
 
     public override void OnFocus() {
-
+        LookingAt();
     }
 
     public override void OnInteract() {
@@ -30,11 +36,18 @@ public class LightSwitch : InteractableObject {
     }
 
     public override void OnLoseFocus() {
-
+        TextMeshProUGUI textComponent = interactorText.GetComponent<TextMeshProUGUI>();
+        textComponent.text = "";
     }
 
     private void Start() {
         lightSwitchSource = GetComponent<AudioSource>();
+    }
+
+    private void LookingAt() {
+        TextMeshProUGUI textComponent = interactorText.GetComponent<TextMeshProUGUI>();
+        string textToDisplay = lightsAreOn ? turnOffLightText : turnOnLightText;
+        textComponent.text = textToDisplay;
     }
 
     private void TurnOnLights() {

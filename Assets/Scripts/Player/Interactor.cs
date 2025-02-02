@@ -13,6 +13,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] private InputActionAsset PlayerActions;
 
     private InputAction interactAction;
+    private InteractableObject lastInteractObject = null;
 
     private void Awake() {
         interactAction = PlayerActions.FindActionMap("Player").FindAction("Interact");
@@ -35,13 +36,18 @@ public class Interactor : MonoBehaviour
 
     private void Interact() {
         bool interactionPressed = interactAction.WasPressedThisFrame();
-        if (!interactionPressed) return;
+        Ray r = new Ray(interactorSource.position, interactorSource.forward);
+        if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange)) {
+            if (hitInfo.collider.gameObject.TryGetComponent(out InteractableObject interactObject)) {
 
-        if (interactionPressed) {
-            Ray r = new Ray(interactorSource.position, interactorSource.forward);
-            if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange)) {
-                if (hitInfo.collider.gameObject.TryGetComponent(out InteractableObject interactObject)) {
+                if (lastInteractObject != interactObject) {
+                    lastInteractObject?.OnLoseFocus();
+                    lastInteractObject = interactObject;
+                }
 
+                interactObject.OnFocus();
+
+                if (interactionPressed) {
                     // If player is trying to open a door or interact with non inventory
                     if (!interactObject.CompareTag("InventoryItem") && !interactObject.CompareTag("Container")) {
                         interactObject.OnInteract();
@@ -59,6 +65,17 @@ public class Interactor : MonoBehaviour
                         interactObject.OnInteract();
                     }
                 }
+
+            } else {
+                if (lastInteractObject != null) {
+                    lastInteractObject.OnLoseFocus();
+                    lastInteractObject = null;
+                }
+            }
+        } else {
+            if (lastInteractObject != null) {
+                lastInteractObject.OnLoseFocus();
+                lastInteractObject = null;
             }
         }
     }
