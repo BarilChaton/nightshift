@@ -7348,6 +7348,7 @@ MonoBehaviour:
   NPC: {fileID: 678360616738909788}
   player: {fileID: 72939494}
   freezeDuration: 3
+  lookSpeed: 2
 --- !u!65 &2074983836
 BoxCollider:
   m_ObjectHideFlags: 0

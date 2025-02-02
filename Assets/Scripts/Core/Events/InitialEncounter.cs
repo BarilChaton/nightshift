@@ -6,8 +6,8 @@ public class InitialEncounter : MonoBehaviour
 {
     [SerializeField] private GameObject NPC;
     [SerializeField] private GameObject player;
-    [SerializeField] private float freezeDuration = 3f;
-    [SerializeField] private float lookSpeed = 0.1f;
+    [SerializeField] private float freezeDuration = 7f;
+    [SerializeField] private float lookSpeed = 2f;
     private PlayerController playerController;
     private Transform playerCameraTransform;
     private bool hasTriggered = false;
@@ -20,27 +20,27 @@ public class InitialEncounter : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player") && !hasTriggered) 
         {
+            hasTriggered = true;
             playerController.FreezeMovement();
             StartCoroutine(ForceLookAtNPC());
-            hasTriggered = true;
-            gameObject.SetActive(false);
         }
     }
 
     IEnumerator ForceLookAtNPC() {
-        Vector3 directionToNpc = (NPC.transform.position - playerCameraTransform.position).normalized;
+        Vector3 directionToNpc = (NPC.transform.position - player.transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(directionToNpc);
+        float targetYRotation = targetRotation.eulerAngles.y;
+        Quaternion newYRotation = Quaternion.Euler(0, targetYRotation, 0);
         float elapsedTime = 0f;
-        Quaternion initialRotation = playerCameraTransform.rotation;
 
         while (elapsedTime < freezeDuration) {
-            float t = elapsedTime / freezeDuration;
-            playerCameraTransform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, newYRotation, lookSpeed * Time.deltaTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         playerCameraTransform.rotation = targetRotation;
         playerController.UnfreezeMovement();
+        gameObject.SetActive(false);
     }
 }
