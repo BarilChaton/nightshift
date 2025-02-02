@@ -7,6 +7,7 @@ TagManager:
   - InventoryItem
   - Container
   - ToiletContainer
+  - StickyNote
   layers:
   - Default
   - TransparentFX

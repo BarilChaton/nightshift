@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +20,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private InputActionAsset PlayerActions;
     [SerializeField] private GameObject objectivesUI;
     [SerializeField] private GameObject threeTrashbagsObjective = null;
+
+    // Start
+    [SerializeField] private GameObject dialogueUI;
+    [SerializeField] private string startDialogueText = "";
+    [SerializeField] private string firstTaskToggleDialogueText = "";
+    private bool firstTimeObjectiveToggle = true;
 
     // Sequence
     [Header("Sequence 0")]
@@ -48,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
         Instance = this;
+        StartCoroutine(WaitForFirstMessage(3f));
     }
 
     private void OnEnable() {
@@ -80,6 +89,13 @@ public class GameManager : MonoBehaviour
             objectivesUI.SetActive(false);
         } else {
             objectivesUI.SetActive(true);
+
+            if (firstTimeObjectiveToggle) {
+                TextMeshProUGUI textComponent = dialogueUI.GetComponent<TextMeshProUGUI>();
+                textComponent.text = firstTaskToggleDialogueText;
+                firstTimeObjectiveToggle = false;
+                DisableDialogue(5f);
+            }
         }
     }
 
@@ -125,5 +141,22 @@ public class GameManager : MonoBehaviour
         // First index should be 1 as the second element of the array so it does not activate the first as it's supposed to be inactive.
         int randomIndex = Random.Range(1, group.Length);
         group[randomIndex].SetActive(true);
+    }
+
+    public void DisableDialogue(float delay) {
+        StartCoroutine(DisableDialogueCoRoutine(delay));
+    }
+
+    IEnumerator WaitForFirstMessage(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        TextMeshProUGUI textComponent = dialogueUI.GetComponent<TextMeshProUGUI>();
+        textComponent.text = startDialogueText;
+        DisableDialogue(5f);
+    }
+
+    IEnumerator DisableDialogueCoRoutine(float delay) {
+        yield return new WaitForSeconds(delay);
+        TextMeshProUGUI textComponent = dialogueUI.GetComponent<TextMeshProUGUI>();
+        textComponent.text = "";
     }
 }

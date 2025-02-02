@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,10 @@ public class Interactor : MonoBehaviour
     public bool isHoldingInventory = false;
 
     [SerializeField] private InputActionAsset PlayerActions;
+    [SerializeField] private GameManager gameManager;
+
+    [SerializeField] private GameObject dialogueUI;
+    [SerializeField] private string dialogueBlockToDisplay = "I should get the task list first.";
 
     private InputAction interactAction;
     private InteractableObject lastInteractObject = null;
@@ -54,8 +59,18 @@ public class Interactor : MonoBehaviour
                     } 
 
                     // If player is trying to pick up inventory item
-                    if (interactObject.CompareTag("InventoryItem") && !isHoldingInventory) {
+                    if (interactObject.CompareTag("InventoryItem") && !isHoldingInventory && gameManager.stickyNotesPicked) {
                         isHoldingInventory = true;
+                        interactObject.OnInteract();
+                    }
+
+                    if (interactObject.CompareTag("InventoryItem") && !gameManager.stickyNotesPicked) {
+                        TextMeshProUGUI textComponent = dialogueUI.GetComponent<TextMeshProUGUI>();
+                        textComponent.text = dialogueBlockToDisplay;
+                        gameManager.DisableDialogue(5f);
+                    }
+
+                    if (interactObject.CompareTag("StickyNote") && !gameManager.stickyNotesPicked) {
                         interactObject.OnInteract();
                     }
                     
